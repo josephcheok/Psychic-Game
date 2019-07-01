@@ -53,7 +53,6 @@
 
       reset();
 
-      // Whenever a key is pressed, alert "pressed a button".
       document.onkeyup = function(event) {
         if (event.key === completter) {
           win++;
@@ -66,12 +65,12 @@
 
         if (guessesleft === 0) {
           lose++;
-          reset();
           alert(
             "The letter I was thinking of was '" +
               completter +
               "'. Your psychic ability can be trained. Keep trying!"
           );
+          reset();
         }
 
         console.log(completter);
