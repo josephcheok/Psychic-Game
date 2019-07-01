@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+  <body>
+    <!-- Pseudo Code:
+    1. Computer generates a letter. 
+    2. User types a letter.
+    3. Computer compares letter with letter generated from Step 1
+    4. If letter matches, win ++
+    5. Reset guess
+    6. If letter does not match, guess--
+    7. If guess exhausted, lose ++
+    8. Reset guess
+    -->
+    <div id="game">
+      <h2>Guess what letter I'm thinking of</h2>
+      <h2>Win: <span id="win">0</span></h2>
+      <h2>Lose: <span id="lose">0</span></h2>
+      <h2>Guesses Left: <span id="guessesleft">9</span></h2>
+      <h2>Your guesses so far: <span id="guessbar"> </span></h2>
+    </div>
+
+    <script type="text/javascript">
+      var win = 0;
+      var lose = 0;
+      var userguesses = 0;
+      var guessesleft = 9;
+      var guessbar = [];
+
+      function makeid(length) {
+        var characters = "abcdefghijklmnopqrstuvwxyz";
+        var charactersLength = characters.length;
+        for (var i = 0; i < length; i++) {
+          result = characters.charAt(
+            Math.floor(Math.random() * charactersLength)
+          );
+        }
+        return result;
+      }
+
+      var completter = makeid(1);
+
+      function reset() {
+        guessesleft = 9;
+        completter = makeid(1);
+        guessbar = [];
+      }
+
+      reset();
+
+      // Whenever a key is pressed, alert "pressed a button".
+      document.onkeyup = function(event) {
+        if (event.key === completter) {
+          win++;
+          alert("You are right. It was " + event.key + "! Getting there!");
+          reset();
+        } else {
+          guessesleft--;
+          guessbar.push(event.key);
+        }
+
+        if (guessesleft === 0) {
+          lose++;
+          reset();
+          alert(
+            "The letter I was thinking of was '" +
+              completter +
+              "'. Your psychic ability can be trained. Keep trying!"
+          );
+        }
+
+        console.log(completter);
+        console.log("Win: " + win);
+        console.log("Lose: " + lose);
+        console.log("Guesses Left: " + guessesleft);
+        console.log("Guesses so far: " + guessbar);
+
+        document.getElementById("win").textContent = win;
+        document.getElementById("lose").textContent = lose;
+        document.getElementById("guessesleft").textContent = guessesleft;
+        document.getElementById("guessbar").textContent = guessbar;
+      };
+    </script>
+  </body>
+</html>
